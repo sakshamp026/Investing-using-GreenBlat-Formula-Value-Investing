@@ -1,51 +1,51 @@
-# Value-Investing-using-GreenBlat-Formula
+# 📈 Magic Formula Value Investing
 
-# 📈 Magic Formula Value Investing (Greenblatt Strategy)
+This project implements **Joel Greenblatt’s Magic Formula**, a systematic approach to value investing introduced in *The Little Book That Still Beats the Market*.  
 
-This repository implements **Joel Greenblatt’s Magic Formula** for value investing, adapted to work with both **US** and **Indian** stocks using live financial data from [Yahoo Finance](https://finance.yahoo.com) via the [`yfinance`](https://github.com/ranaroussi/yfinance) Python library.
+The formula is designed to help investors find **good companies at cheap prices** by ranking stocks on two simple measures: **Earnings Yield** and **Return on Capital**.
 
 ---
 
-## 🧠 What is the Magic Formula?
+## 🧠 The Magic Formula
 
-The Magic Formula was introduced by Joel Greenblatt in *The Little Book That Still Beats the Market*.  
-It systematically ranks companies to find **“good businesses at bargain prices”** using two metrics:
+The strategy uses two key metrics:
 
-1. **Earnings Yield (EY)** – how cheap the stock is  
+1. **Earnings Yield (EY)** – a measure of cheapness  
    \[
    EY = \frac{EBIT}{Enterprise\ Value}
-   \]
+   \]  
+   - **EBIT** = Earnings Before Interest and Taxes (operating profit)  
+   - **Enterprise Value (EV)** = Market Cap + Debt − Cash  
+   - Higher EY → cheaper stock relative to its earnings power  
 
-2. **Return on Capital (ROC)** – how good the business is  
+2. **Return on Capital (ROC)** – a measure of quality  
    \[
    ROC = \frac{EBIT}{Net\ Fixed\ Assets + Working\ Capital}
-   \]
+   \]  
+   - Shows how efficiently a company generates profits from the capital it uses  
+   - Higher ROC → stronger business  
 
-Stocks are ranked on both, and the combined rank gives the **Magic Formula Rank**.
-
----
-
-## 📊 Features
-
-- Works with both **Indian (.NS)** and **US** stocks.
-- Uses only `yfinance` (no fragile HTML scraping).
-- Computes:
-  - EBIT
-  - Enterprise Value (TEV)
-  - Earnings Yield (EY)
-  - Return on Capital (ROC)
-  - Free Cash Flow Yield
-  - Book-to-Market
-  - Dividend Yield
-- Ranks stocks by the Magic Formula.
-- Outputs a ranked DataFrame and saves results to CSV.
+**Ranking:**  
+- Rank all stocks by EY (highest = rank 1)  
+- Rank all stocks by ROC (highest = rank 1)  
+- Add the two ranks → lower combined score = better investment  
 
 ---
 
-## 🛠️ Installation
+## 📊 What the Code Does
 
-Clone the repo:
+1. **Fetches Data**  
+   - Uses `yfinance` to download financial data for a list of large US and Indian stocks.  
+   - Pulls information such as EBIT, Market Cap, Debt, Cash, PPE, and Cash Flow.  
 
-```bash
-git clone https://github.com/your-username/magic-formula-value-investing.git
-cd magic-formula-value-investing
+2. **Computes Metrics**  
+   - Calculates EBIT, Enterprise Value, Earnings Yield, Return on Capital.  
+   - Also computes supporting ratios like Free Cash Flow Yield, Book-to-Market, and Dividend Yield.  
+
+3. **Ranks Stocks**  
+   - Ranks each stock separately on EY and ROC.  
+   - Combines ranks into a **Magic Formula Score**.  
+   - Sorts stocks so the top-ranked are both **cheap and high-quality**.  
+
+4. **Outputs Results**  
+   - Produces a ranked table of stocks with their fina
